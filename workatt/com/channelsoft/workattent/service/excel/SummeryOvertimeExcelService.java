@@ -11,9 +11,9 @@ import java.util.List;
 
 public class SummeryOvertimeExcelService {
 
-    private static final String path = "C:\\Users\\channelsoft\\Desktop\\加班统计";
-    private static final String modepath = "C:\\Users\\channelsoft\\Desktop\\加班统计\\模板工作餐费统计表--部门汇总.xlsx";
-    private static final String targetpath = "C:\\Users\\channelsoft\\Desktop\\加班统计\\工作餐费统计表--部门汇总.xlsx";
+    private static final String path = "E:\\workadd";
+    private static final String modepath = "E:\\workadd\\模板工作餐费统计表--部门汇总.xlsx";
+    private static final String targetpath = "E:\\workadd\\工作餐费统计表--部门汇总.xlsx";
     private static final int startRow = 4;
 
     /**
@@ -61,7 +61,6 @@ public class SummeryOvertimeExcelService {
             ExcelUtils.copyValue(originalRow.getCell(i), targetRow.getCell(i));
         }
         for (int i = 0; i < 16; i++) {
-            System.out.println("==========================");
             ExcelUtils.printCellContent(targetRow.getCell(i));
         }
         try {
