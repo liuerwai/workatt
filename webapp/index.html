@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="text" value="" name="workerNo" id="workerNo">
+    <button  id="submit">查询</button>
+
+    <fieldset>
+        <legend>加班情况</legend>
+        <ul id="info">
+
+        </ul>
+    </fieldset>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+<script>
+
+    $('#submit').click(function () {
+        $.ajax({
+            type: "GET",
+            url: "query",
+            data: {workerNo:$("#workerNo").val()},
+            success: function(data) {
+                if (!data.success) {
+                    return;
+                }
+                var html = '';
+                data.rows.info.forEach(function (item) {
+                    html += '<li>' + item + '</li>'
+                })
+                $('#info').html(html);
+                window.location.href='dowload/'+ data.rows.fileName;
+            }
+
+        });
+    })
+</script>
+</body>
+</html>

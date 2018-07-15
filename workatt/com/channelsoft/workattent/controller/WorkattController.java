@@ -25,11 +25,10 @@ public class WorkattController {
     CreatePersionExcelService createPersionExcelService;
 
     @ResponseBody
-    @RequestMapping("/query")
+    @RequestMapping(value = "/query",produces = "application/json; charset=utf-8")
     private Object query(String workerNo, HttpServletRequest request, HttpServletResponse response){
 
         try {
-            response.setContentType("text/html;charset=UTF-8");
             String basePath = request.getSession().getServletContext().getRealPath("/");
             Map map = new HashMap<String, Object>();
             WorkerPo worker = Factory.createWorker(workerNo);

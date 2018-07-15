@@ -15,6 +15,7 @@ public class CreatePersionExcelService {
     private static final String suffix = ".xlsx";
     private static final String modepath = CreatePersionExcelService.class.getClassLoader().getResource("").getPath() + "/工作餐费统计表--模板.xlsx";
     private static final int startRow = 3;
+    private static final String fileSeparator = System.getProperty("file.separator");
 
     /**
      * 创建个人加班统计Excel
@@ -81,7 +82,7 @@ public class CreatePersionExcelService {
      */
     private String getPersionalFilePathName(WorkerPo worker, String realPath) {
 
-        return realPath + "\\dowload\\" + getRalativePath(worker);
+        return realPath + fileSeparator + "dowload" + fileSeparator + getRalativePath(worker);
     }
 
     /**
