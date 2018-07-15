@@ -1,0 +1,5 @@
+/webapp/*/node_modules/*
+webapp/WEB-INF/classes/*
+target/*
+workatt.iml
+.idea
