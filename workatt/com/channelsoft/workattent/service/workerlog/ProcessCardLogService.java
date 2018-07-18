@@ -198,7 +198,7 @@ public class ProcessCardLogService {
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
                 }
             } else {
-                worker.getWorkLog().add(date + " : 矿工");
+                worker.getWorkLog().add(date + " : 旷工");
             }
         } else {
             // 如果不是工作日
