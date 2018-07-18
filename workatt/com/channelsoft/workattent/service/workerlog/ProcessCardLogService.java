@@ -178,8 +178,9 @@ public class ProcessCardLogService {
         if (isWorkDay(calendar)) {
             if (hashDayLogs.containsKey(calendar.get(Calendar.DAY_OF_YEAR))) {
                 List<Calendar> listDayLogs = hashDayLogs.get(calendar.get(Calendar.DAY_OF_YEAR));
+
                 if (listDayLogs.size() < 2) {
-                    worker.getWorkLog().add(date + " : 上班忘记打卡或者下班忘记打卡或者调休");
+                    worker.getWorkLog().add(date + " : 上班忘记打卡或者下班忘记打卡或者调休 " + getCardLogStr(listDayLogs));
                     return;
                 }
                 sort(listDayLogs);
@@ -192,12 +193,12 @@ public class ProcessCardLogService {
                     worker.getWorkLog().add(date + " : 上班迟到");
                 }
                 if (startHour >= 10 && startMinute != 0) {
-                    worker.getWorkLog().add(date + " : 上班忘记打卡或者调休");
+                    worker.getWorkLog().add(date + " : 上班忘记打卡或者调休" + getCardLogStr(listDayLogs));
                 }
                 int endHour = listDayLogs.get(listDayLogs.size() - 1).get(Calendar.HOUR_OF_DAY);
                 int endMinute = listDayLogs.get(listDayLogs.size() - 1).get(Calendar.MINUTE);
                 if (endHour < 18) {
-                    worker.getWorkLog().add(date + " : 下班忘记打卡或者调休");
+                    worker.getWorkLog().add(date + " : 下班忘记打卡或者调休" + getCardLogStr(listDayLogs));
                 }
                 if ((endHour == 20 && endMinute >= 30) || (endHour >= 21)) {
                     worker.getWorkLog().add(date + " : 工作日加班");
@@ -269,6 +270,25 @@ public class ProcessCardLogService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 打卡记录toString
+     * @param list
+     * @return
+     */
+    private String getCardLogStr(List<Calendar> list){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        if(list != null && list.size() > 0){
+            StringBuffer stringBuffer = new StringBuffer("");
+            stringBuffer.append("打卡情况：");
+            for(Calendar item : list){
+                stringBuffer.append(sdf.format(item.getTime())).append(";");
+            }
+            return stringBuffer.toString();
+        }
+        return "";
     }
 
 }
