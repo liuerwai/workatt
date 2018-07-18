@@ -169,6 +169,12 @@ public class ProcessCardLogService {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(calendar.getTime());
+        Calendar now = Calendar.getInstance();
+        if(now.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)
+                && now.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH)
+                && now.get(Calendar.HOUR_OF_DAY) < 18){
+            return;
+        }
         if (isWorkDay(calendar)) {
             if (hashDayLogs.containsKey(calendar.get(Calendar.DAY_OF_YEAR))) {
                 List<Calendar> listDayLogs = hashDayLogs.get(calendar.get(Calendar.DAY_OF_YEAR));
