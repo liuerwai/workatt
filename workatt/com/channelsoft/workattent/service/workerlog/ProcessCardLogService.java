@@ -210,8 +210,8 @@ public class ProcessCardLogService {
                 sort(listDayLogs);
                 Date startWorkTime = listDayLogs.get(0).getTime();
                 Date endWorkTime = listDayLogs.get(listDayLogs.size() - 1).getTime();
-                // 工作时间超过6小时
-                if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 > 6) {
+                // 工作时间超过8小时
+                if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 >= 8) {
                     worker.getWorkLog().add(date + " : 节假日加班");
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
                 }
