@@ -173,7 +173,7 @@ public class ProcessCardLogService {
             if (hashDayLogs.containsKey(calendar.get(Calendar.DAY_OF_YEAR))) {
                 List<Calendar> listDayLogs = hashDayLogs.get(calendar.get(Calendar.DAY_OF_YEAR));
                 if (listDayLogs.size() < 2) {
-                    worker.getWorkLog().add(date + " : 上班忘记打卡或者下班忘记打卡");
+                    worker.getWorkLog().add(date + " : 上班忘记打卡或者下班忘记打卡或者调休");
                     return;
                 }
                 sort(listDayLogs);
@@ -186,19 +186,19 @@ public class ProcessCardLogService {
                     worker.getWorkLog().add(date + " : 上班迟到");
                 }
                 if (startHour >= 10 && startMinute != 0) {
-                    worker.getWorkLog().add(date + " : 上班忘记打卡");
+                    worker.getWorkLog().add(date + " : 上班忘记打卡或者调休");
                 }
                 int endHour = listDayLogs.get(listDayLogs.size() - 1).get(Calendar.HOUR_OF_DAY);
                 int endMinute = listDayLogs.get(listDayLogs.size() - 1).get(Calendar.MINUTE);
                 if (endHour < 18) {
-                    worker.getWorkLog().add(date + " : 下班忘记打卡");
+                    worker.getWorkLog().add(date + " : 下班忘记打卡或者调休");
                 }
                 if ((endHour == 20 && endMinute >= 30) || (endHour >= 21)) {
                     worker.getWorkLog().add(date + " : 工作日加班");
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
                 }
             } else {
-                worker.getWorkLog().add(date + " : 旷工");
+                worker.getWorkLog().add(date + " : 旷工或者请假");
             }
         } else {
             // 如果不是工作日
