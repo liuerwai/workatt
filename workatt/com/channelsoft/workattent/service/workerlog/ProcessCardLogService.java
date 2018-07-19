@@ -201,7 +201,7 @@ public class ProcessCardLogService {
                     worker.getWorkLog().add(date + " : 下班忘记打卡或者调休" + getCardLogStr(listDayLogs));
                 }
                 if ((endHour == 20 && endMinute >= 30) || (endHour >= 21)) {
-                    worker.getWorkLog().add(date + " : 工作日加班");
+                    worker.getWorkLog().add(date + " : 工作日加班 " + getCardLogStr(listDayLogs));
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
                 }
             } else {
@@ -219,7 +219,7 @@ public class ProcessCardLogService {
                 Date endWorkTime = listDayLogs.get(listDayLogs.size() - 1).getTime();
                 // 工作时间超过8小时
                 if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 >= 8) {
-                    worker.getWorkLog().add(date + " : 节假日加班");
+                    worker.getWorkLog().add(date + " : 周末/节假日加班 " + getCardLogStr(listDayLogs));
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
                 }
             }
