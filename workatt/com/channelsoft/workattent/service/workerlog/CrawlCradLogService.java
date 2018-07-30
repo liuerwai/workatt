@@ -48,8 +48,8 @@ public class CrawlCradLogService {
         CloseableHttpClient httpClient = Factory.createHttpClient(worker);
         Map<String, String> header = new HashMap<String, String>();
         Map<String, String> map = new HashMap();
-        map.put("username", worker.getWorkerNo());
-        map.put("password", worker.getWorkerNo());
+        map.put("username", worker.getWorkerNoForLogin());
+        map.put("password", worker.getWorkerNoForLogin());
         map.put("this_is_the_login_form", "1");
         map.put("post_data", "");
         HttpClientUtils.doPostWithParam("http://219.142.74.35:49527/iclock/accounts/login/", map, httpClient, header);

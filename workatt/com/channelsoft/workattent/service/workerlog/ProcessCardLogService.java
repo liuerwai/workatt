@@ -178,14 +178,21 @@ public class ProcessCardLogService {
         if (isWorkDay(calendar)) {
             if (hashDayLogs.containsKey(calendar.get(Calendar.DAY_OF_YEAR))) {
                 List<Calendar> listDayLogs = hashDayLogs.get(calendar.get(Calendar.DAY_OF_YEAR));
-
-                if (listDayLogs.size() < 2) {
+                if (listDayLogs.size() == 0) {
                     worker.getWorkLog().add(date + " : 上班忘记打卡或者下班忘记打卡或者调休 " + getCardLogStr(listDayLogs));
                     return;
                 }
                 sort(listDayLogs);
                 int startHour = listDayLogs.get(0).get(Calendar.HOUR_OF_DAY);
                 int startMinute = listDayLogs.get(0).get(Calendar.MINUTE);
+                if (listDayLogs.size() == 1) {
+                    if (startHour >= 9 && startHour < 10 && startMinute != 0) {
+                        worker.getWorkLog().add(date + " : 上班迟到 下班忘记打卡或者调休 "+ getCardLogStr(listDayLogs));
+                    } else {
+                        worker.getWorkLog().add(date + " : 下班忘记打卡或者调休 " + getCardLogStr(listDayLogs));
+                        return;
+                    }
+                }
                 if (startHour >= 9 && startHour < 10 && startMinute != 0) {
                     worker.getWorkLog().add(date + " : 上班迟到");
                 }

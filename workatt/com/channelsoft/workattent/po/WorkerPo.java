@@ -6,6 +6,7 @@ public class WorkerPo {
 
     private String name;
     private String workerNo;
+    private String workerNoForLogin;
     private String dep;
     private String position;
     private List<String> overTime;
@@ -66,5 +67,13 @@ public class WorkerPo {
 
     public void setWorkLog(List<String> workLog) {
         this.workLog = workLog;
+    }
+
+    public String getWorkerNoForLogin() {
+        return workerNoForLogin;
+    }
+
+    public void setWorkerNoForLogin(String workerNoForLogin) {
+        this.workerNoForLogin = workerNoForLogin;
     }
 }
