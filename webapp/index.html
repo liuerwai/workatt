@@ -31,7 +31,8 @@
                     html += '<li>' + item + '</li>'
                 })
                 $('#info').html(html);
-                window.location.href='dowload/'+ data.rows.fileName;
+                window.location.href='dowload/'+ data.rows.excelFileName;
+                window.open('dowload/'+ data.rows.wordFileName);
             }
 
         });

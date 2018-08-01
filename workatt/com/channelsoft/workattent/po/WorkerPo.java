@@ -12,6 +12,8 @@ public class WorkerPo {
     private List<String> overTime;
     private String exactUserId;
     private List<String> workLog;
+    private List<String> workOverList;
+    private List<String> workOverReasion;
 
     public String getName() {
         return name;
@@ -75,5 +77,21 @@ public class WorkerPo {
 
     public void setWorkerNoForLogin(String workerNoForLogin) {
         this.workerNoForLogin = workerNoForLogin;
+    }
+
+    public List<String> getWorkOverList() {
+        return workOverList;
+    }
+
+    public void setWorkOverList(List<String> workOverList) {
+        this.workOverList = workOverList;
+    }
+
+    public List<String> getWorkOverReasion() {
+        return workOverReasion;
+    }
+
+    public void setWorkOverReasion(List<String> workOverReasion) {
+        this.workOverReasion = workOverReasion;
     }
 }

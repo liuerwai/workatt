@@ -5,6 +5,7 @@ import com.channelsoft.workattent.factory.Factory;
 import com.channelsoft.workattent.po.ResultPo;
 import com.channelsoft.workattent.po.WorkerPo;
 import com.channelsoft.workattent.service.excel.CreatePersionExcelService;
+import com.channelsoft.workattent.service.word.CreatePersionWordService;
 import com.channelsoft.workattent.service.workerlog.ProcessCardLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ public class WorkattController {
     ProcessCardLogService processCardLogService;
     @Autowired
     CreatePersionExcelService createPersionExcelService;
+    @Autowired
+    CreatePersionWordService createPersionWordService;
 
     @ResponseBody
     @RequestMapping(value = "/query",produces = "application/json; charset=utf-8")
@@ -33,12 +36,14 @@ public class WorkattController {
             Map map = new HashMap<String, Object>();
             WorkerPo worker = Factory.createWorker(workerNo);
             processCardLogService.processWorkerAttendance(worker);
-            String fileName = createPersionExcelService.createPersionOvertimeExcel(worker, basePath);
-            map.put("fileName", fileName);
+            String excelFileName = createPersionExcelService.createPersionOvertimeExcel(worker, basePath);
+            String wordFileName = createPersionWordService.createPersionOvertimeExcel(worker, basePath);
+            map.put("excelFileName", excelFileName);
+            map.put("wordFileName", wordFileName);
             map.put("info", worker.getWorkLog());
             return JSON.toJSONString(ResultPo.success("查询成功", 1,map));
         } catch (Exception e){
-
+            e.printStackTrace();
         }
         return null;
     }

@@ -2,6 +2,7 @@ package com.channelsoft.spring;
 
 import com.channelsoft.workattent.service.excel.CreatePersionExcelService;
 import com.channelsoft.workattent.service.excel.SummeryOvertimeExcelService;
+import com.channelsoft.workattent.service.word.CreatePersionWordService;
 import com.channelsoft.workattent.service.workerlog.CrawlCradLogService;
 import com.channelsoft.workattent.service.workerlog.ProcessCardLogService;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +14,12 @@ import org.springframework.context.annotation.Configuration;
 public class RootConfig {
 
     @Bean
-    public CreatePersionExcelService getCreatePersionService() {
+    public CreatePersionExcelService getCreatePersionExcelService() {
         return new CreatePersionExcelService();
+    }
+    @Bean
+    public CreatePersionWordService getCreatePersionWordService() {
+        return new CreatePersionWordService();
     }
 
     @Bean

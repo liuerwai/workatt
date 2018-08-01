@@ -210,6 +210,7 @@ public class ProcessCardLogService {
                 if ((endHour == 20 && endMinute >= 30) || (endHour >= 21)) {
                     worker.getWorkLog().add(date + " : 工作日加班 " + getCardLogStr(listDayLogs));
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
+                    getWorkContent(listDayLogs.get(listDayLogs.size() -1), worker);
                 }
             } else {
                 worker.getWorkLog().add(date + " : 旷工或者请假");
@@ -228,6 +229,7 @@ public class ProcessCardLogService {
                 if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 >= 8) {
                     worker.getWorkLog().add(date + " : 周末/节假日加班 " + getCardLogStr(listDayLogs));
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
+                    getWorkContent(listDayLogs.get(0), listDayLogs.get(listDayLogs.size() -1), worker);
                 }
             }
         }
@@ -296,6 +298,52 @@ public class ProcessCardLogService {
             return stringBuffer.toString();
         }
         return "";
+    }
+
+    /**
+     * 获取加班信息
+     * @param calendar
+     * @param workerPo
+     */
+    private void getWorkContent(Calendar calendar, WorkerPo workerPo){
+
+        StringBuffer content = new StringBuffer("");
+        content.append("加班时间：").append(calendar.get(Calendar.YEAR)).append("年 ")
+                .append(calendar.get(Calendar.MONTH ) + 1).append(" 月 ")
+                .append(calendar.get(Calendar.DAY_OF_MONTH)).append(" 日 ")
+                .append("18时 至 ")
+                .append(calendar.get(Calendar.HOUR_OF_DAY)).append("时  总共 ")
+                .append(calendar.get(Calendar.HOUR_OF_DAY) - 18)
+                .append(" 小时（倒休：○是，●否）\r");
+        workerPo.getWorkOverList().add(content.toString());
+        content = new StringBuffer("");
+        content.append(calendar.get(Calendar.MONTH) + 1).append("月")
+                .append(calendar.get(Calendar.DAY_OF_MONTH))
+                .append("日：xxx \r");
+        workerPo.getWorkOverReasion().add(content.toString());
+    }
+
+    /**
+     * 获取加班信息
+     * @param start
+     * @param end
+     * @param workerPo
+     */
+    private void getWorkContent(Calendar start, Calendar end, WorkerPo workerPo){
+
+        StringBuffer content = new StringBuffer("");
+        content.append("加班时间：").append(start.get(Calendar.YEAR)).append("年 ")
+                .append(start.get(Calendar.MONTH) + 1).append(" 月 ")
+                .append(start.get(Calendar.DAY_OF_MONTH)).append(" 日 ")
+                .append(start.get(Calendar.HOUR_OF_DAY)).append("时 至 ")
+                .append(end.get(Calendar.HOUR_OF_DAY)).append("时  总共 ")
+                .append(end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY))
+                .append(" 小时（倒休：○是，●否）\r");
+        workerPo.getWorkOverList().add(content.toString());
+        content.append(start.get(Calendar.MONTH) + 1).append("月")
+                .append(start.get(Calendar.DAY_OF_MONTH))
+                .append("日：xxx \r");
+        workerPo.getWorkOverReasion().add(content.toString());
     }
 
 }

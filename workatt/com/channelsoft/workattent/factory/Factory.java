@@ -58,6 +58,8 @@ public class Factory {
         worker.setPosition("软件开发工程师");
         worker.setWorkLog(new ArrayList<String>());
         worker.setOverTime(new ArrayList<String>());
+        worker.setWorkOverList(new ArrayList<String>());
+        worker.setWorkOverReasion(new ArrayList<String>());
         return worker;
     }
 
