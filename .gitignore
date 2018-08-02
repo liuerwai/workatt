@@ -1,5 +1,6 @@
 /webapp/*/node_modules/*
 webapp/WEB-INF/classes/*
+webapp/META-INF
 target/*
 workatt.iml
 .idea
