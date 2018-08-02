@@ -32,7 +32,18 @@
                 })
                 $('#info').html(html);
                 window.location.href='dowload/'+ data.rows.excelFileName;
-                window.open('dowload/'+ data.rows.wordFileName);
+//                window.open('dowload/'+ data.rows.wordFileName);
+// 防止windows.open被浏览器拦截
+                var a = document.createElement('a');
+                a.setAttribute('href', 'dowload/'+ data.rows.wordFileName);
+                a.setAttribute('target', '_blank');
+                a.setAttribute('id', 'tempa');
+                // 防止反复添加
+                if(!document.getElementById('tempa')) {
+                    document.body.appendChild(a);
+                }
+                a.click();
+
             }
 
         });

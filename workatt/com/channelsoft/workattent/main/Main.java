@@ -1,8 +1,8 @@
-package com.channelsoft.workattent.test;
+package com.channelsoft.workattent.main;
 
 import com.channelsoft.workattent.service.excel.SummeryOvertimeExcelService;
 
-public class Test2 {
+public class Main {
 
 
     public static void main(String[] args) throws Exception {
