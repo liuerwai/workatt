@@ -10,7 +10,7 @@ import java.util.Map;
 public class CreatePersionWordService {
 
     private static final String suffix = ".doc";
-    private static final String modepath = CreatePersionExcelService.class.getClassLoader().getResource("").getPath() + "/加班工作确认单模板.doc";
+    private static final String modepath = CreatePersionExcelService.class.getClassLoader().getResource("").getPath() + "/加班工作确认单--模版.doc";
     private static final int startRow = 3;
     private static final String fileSeparator = System.getProperty("file.separator");
 
