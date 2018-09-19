@@ -225,8 +225,8 @@ public class ProcessCardLogService {
                 sort(listDayLogs);
                 Date startWorkTime = listDayLogs.get(0).getTime();
                 Date endWorkTime = listDayLogs.get(listDayLogs.size() - 1).getTime();
-                // 工作时间超过8小时
-                if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 >= 8) {
+                // 工作时间超过5小时
+                if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 >= 5) {
                     worker.getWorkLog().add(date + " : 周末/节假日加班 " + getCardLogStr(listDayLogs));
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
                     getWorkContent(listDayLogs.get(0), listDayLogs.get(listDayLogs.size() -1), worker);
@@ -340,6 +340,7 @@ public class ProcessCardLogService {
                 .append(end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY))
                 .append(" 小时（倒休：○是，●否）\r");
         workerPo.getWorkOverList().add(content.toString());
+        content = new StringBuffer("");
         content.append(start.get(Calendar.MONTH) + 1).append("月")
                 .append(start.get(Calendar.DAY_OF_MONTH))
                 .append("日：xxx \r");
