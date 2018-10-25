@@ -1,6 +1,5 @@
 package com.channelsoft.workattent.utill;
 
-import com.channelsoft.workattent.service.workerlog.HttpClientUtils;
 import com.channelsoft.workattent.service.workerlog.ProcessCardLogService;
 
 import java.io.*;

@@ -3,21 +3,15 @@ package com.channelsoft.workattent.service.workerlog;
 
 import com.alibaba.fastjson.JSON;
 import com.channelsoft.workattent.constants.Config;
-import com.channelsoft.workattent.utill.HolidayUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.channelsoft.workattent.po.CardLogPo;
 import com.channelsoft.workattent.po.WorkerPo;
+import com.channelsoft.workattent.utill.CrawlCradLogUtils;
+import com.channelsoft.workattent.utill.HolidayUtils;
 
-import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ProcessCardLogService {
-
-    @Autowired
-    CrawlCradLogService crawlService;
-
 
     public void processWorkerAttendance(WorkerPo worker) throws Exception {
 
@@ -34,9 +28,9 @@ public class ProcessCardLogService {
         String endTime = sdf.format(endCalendar.getTime());
         endCalendar.setTime(sdf.parse(endTime));
         // 获取打卡记录
-        crawlService.login(worker);
-        crawlService.setExactUserId(worker);
-        String cardLog = crawlService.getWorkerCardLog(worker, startTime, endTime);
+        CrawlCradLogUtils.login(worker);
+        CrawlCradLogUtils.setExactUserId(worker);
+        String cardLog = CrawlCradLogUtils.getWorkerCardLog(worker, startTime, endTime);
         // 处理打卡记录
         List<CardLogPo> listCardLog = JSON.parseArray(cardLog, CardLogPo.class);
         HashMap<Integer, List<Calendar>> dayLogs = new HashMap();
@@ -106,9 +100,9 @@ public class ProcessCardLogService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(calendar.getTime());
         Calendar now = Calendar.getInstance();
-        if(now.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)
+        if (now.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)
                 && now.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH)
-                && now.get(Calendar.HOUR_OF_DAY) < 18){
+                && now.get(Calendar.HOUR_OF_DAY) < 18) {
             return;
         }
         if (HolidayUtils.isWorkDay(calendar)) {
@@ -123,7 +117,7 @@ public class ProcessCardLogService {
                 int startMinute = listDayLogs.get(0).get(Calendar.MINUTE);
                 if (listDayLogs.size() == 1) {
                     if (startHour >= 9 && startHour < 10 && startMinute != 0) {
-                        worker.getWorkLog().add(date + " : 上班迟到 下班忘记打卡或者调休 "+ getCardLogStr(listDayLogs));
+                        worker.getWorkLog().add(date + " : 上班迟到 下班忘记打卡或者调休 " + getCardLogStr(listDayLogs));
                     } else {
                         worker.getWorkLog().add(date + " : 下班忘记打卡或者调休 " + getCardLogStr(listDayLogs));
                         return;
@@ -146,7 +140,7 @@ public class ProcessCardLogService {
                 if ((endHour == 20 && endMinute >= 30) || (endHour >= 21)) {
                     worker.getWorkLog().add(date + " : 工作日加班 " + getCardLogStr(listDayLogs));
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
-                    getWorkContent(listDayLogs.get(listDayLogs.size() -1), worker);
+                    getWorkContent(listDayLogs.get(listDayLogs.size() - 1), worker);
                 }
             } else {
                 worker.getWorkLog().add(date + " : 旷工或者请假");
@@ -165,7 +159,7 @@ public class ProcessCardLogService {
                 if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 >= 5) {
                     worker.getWorkLog().add(date + " : 周末/节假日加班 " + getCardLogStr(listDayLogs));
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
-                    getWorkContent(listDayLogs.get(0), listDayLogs.get(listDayLogs.size() -1), worker);
+                    getWorkContent(listDayLogs.get(0), listDayLogs.get(listDayLogs.size() - 1), worker);
                 }
             }
         }
@@ -173,16 +167,17 @@ public class ProcessCardLogService {
 
     /**
      * 打卡记录toString
+     *
      * @param list
      * @return
      */
-    private String getCardLogStr(List<Calendar> list){
+    private String getCardLogStr(List<Calendar> list) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        if(list != null && list.size() > 0){
+        if (list != null && list.size() > 0) {
             StringBuffer stringBuffer = new StringBuffer("");
             stringBuffer.append("打卡情况：");
-            for(Calendar item : list){
+            for (Calendar item : list) {
                 stringBuffer.append(sdf.format(item.getTime())).append(";");
             }
             return stringBuffer.toString();
@@ -192,14 +187,15 @@ public class ProcessCardLogService {
 
     /**
      * 获取加班信息
+     *
      * @param calendar
      * @param workerPo
      */
-    private void getWorkContent(Calendar calendar, WorkerPo workerPo){
+    private void getWorkContent(Calendar calendar, WorkerPo workerPo) {
 
         StringBuffer content = new StringBuffer("");
         content.append("加班时间：").append(calendar.get(Calendar.YEAR)).append("年 ")
-                .append(calendar.get(Calendar.MONTH ) + 1).append(" 月 ")
+                .append(calendar.get(Calendar.MONTH) + 1).append(" 月 ")
                 .append(calendar.get(Calendar.DAY_OF_MONTH)).append(" 日 ")
                 .append("18时 至 ")
                 .append(calendar.get(Calendar.HOUR_OF_DAY)).append("时  总共 ")
@@ -215,11 +211,12 @@ public class ProcessCardLogService {
 
     /**
      * 获取加班信息
+     *
      * @param start
      * @param end
      * @param workerPo
      */
-    private void getWorkContent(Calendar start, Calendar end, WorkerPo workerPo){
+    private void getWorkContent(Calendar start, Calendar end, WorkerPo workerPo) {
 
         StringBuffer content = new StringBuffer("");
         content.append("加班时间：").append(start.get(Calendar.YEAR)).append("年 ")

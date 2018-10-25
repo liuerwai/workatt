@@ -3,7 +3,7 @@ package com.channelsoft.spring;
 import com.channelsoft.workattent.service.excel.CreatePersionExcelService;
 import com.channelsoft.workattent.service.excel.SummeryOvertimeExcelService;
 import com.channelsoft.workattent.service.word.CreatePersionWordService;
-import com.channelsoft.workattent.service.workerlog.CrawlCradLogService;
+import com.channelsoft.workattent.utill.CrawlCradLogUtils;
 import com.channelsoft.workattent.service.workerlog.ProcessCardLogService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,11 +25,6 @@ public class RootConfig {
     @Bean
     public SummeryOvertimeExcelService getSummeryOvertimeService() {
         return new SummeryOvertimeExcelService();
-    }
-
-    @Bean
-    public CrawlCradLogService getCrawlService() {
-        return new CrawlCradLogService();
     }
 
     @Bean

@@ -1,6 +1,7 @@
-package com.channelsoft.workattent.service.workerlog;
+package com.channelsoft.workattent.utill;
 
 import com.channelsoft.workattent.factory.Factory;
+import com.channelsoft.workattent.utill.HttpClientUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
 import com.channelsoft.workattent.po.WorkerPo;
 
@@ -9,7 +10,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CrawlCradLogService {
+public class CrawlCradLogUtils {
 
     /**
      * 爬取真实的用户id
@@ -17,7 +18,7 @@ public class CrawlCradLogService {
      * @param worker
      * @throws Exception
      */
-    public void setExactUserId(WorkerPo worker) throws Exception {
+    public static void setExactUserId(WorkerPo worker) throws Exception {
 
         // 爬取真实的workerId
         CloseableHttpClient httpClient = Factory.createHttpClient(worker);
@@ -43,7 +44,7 @@ public class CrawlCradLogService {
      * @param worker
      * @throws Exception
      */
-    public void login(WorkerPo worker) throws Exception {
+    public static void login(WorkerPo worker) throws Exception {
 
         CloseableHttpClient httpClient = Factory.createHttpClient(worker);
         Map<String, String> header = new HashMap<String, String>();
@@ -64,7 +65,7 @@ public class CrawlCradLogService {
      * @return
      * @throws Exception
      */
-    public String getWorkerCardLog(WorkerPo worker, String startTime, String endTime) throws Exception {
+    public static String getWorkerCardLog(WorkerPo worker, String startTime, String endTime) throws Exception {
 
         if (worker.getExactUserId() == null || worker.getExactUserId().equals("")) {
             throw new Exception("没有实际UserId 获取失败！");
