@@ -1,6 +1,7 @@
 package com.channelsoft.workattent.service.excel;
 
 import com.channelsoft.workattent.factory.Factory;
+import com.channelsoft.workattent.utill.PathUtils;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -11,9 +12,9 @@ import java.util.List;
 
 public class SummeryOvertimeExcelService {
 
-    private static final String path = "F:\\workatt\\统计文件";
-    private static final String modepath = "F:\\workatt\\模板工作餐费统计表--部门汇总.xlsx";
-    private static final String targetpath = "F:\\workatt\\工作餐费统计表--部门汇总.xlsx";
+    private static final String path = PathUtils.getAbsolutePath() + "\\统计文件";
+    private static final String modepath = PathUtils.getAbsolutePath() + "\\模板工作餐费统计表--部门汇总.xlsx";
+    private static final String targetpath = PathUtils.getAbsolutePath() + "\\工作餐费统计表--部门汇总.xlsx";
     private static final int startRow = 4;
 
     /**
