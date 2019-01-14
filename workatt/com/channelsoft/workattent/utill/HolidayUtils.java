@@ -73,7 +73,7 @@ public class HolidayUtils {
     public static String getHolidayInfo(Calendar calendar) throws Exception {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String baseUrl = "http://lanfly.vicp.io/api/holiday/info/";
+        String baseUrl = "http://timor.tech/api/holiday/info/";
         baseUrl += simpleDateFormat.format(calendar.getTime());
         String info = HttpClientUtils.doGetWithParam(baseUrl, null);
         return info;

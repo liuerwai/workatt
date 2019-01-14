@@ -155,8 +155,8 @@ public class ProcessCardLogService {
                 sort(listDayLogs);
                 Date startWorkTime = listDayLogs.get(0).getTime();
                 Date endWorkTime = listDayLogs.get(listDayLogs.size() - 1).getTime();
-                // 工作时间超过5小时
-                if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 >= 5) {
+                // 工作时间超过3小时
+                if ((endWorkTime.getTime() - startWorkTime.getTime()) / 1000 / 60 / 60 >= 3) {
                     worker.getWorkLog().add(date + " : 周末/节假日加班 " + getCardLogStr(listDayLogs));
                     worker.getOverTime().add(sdf.format(calendar.getTime()));
                     getWorkContent(listDayLogs.get(0), listDayLogs.get(listDayLogs.size() - 1), worker);
