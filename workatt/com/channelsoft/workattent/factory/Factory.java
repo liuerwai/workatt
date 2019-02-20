@@ -54,7 +54,7 @@ public class Factory {
         worker.setName(workerName);
         worker.setWorkerNo(workerNo.substring(1, workerNo.length()));
         worker.setWorkerNoForLogin(workerNo);
-        worker.setDep("联络云服务部/研发中心/应用开发");
+        worker.setDep("联络云产品线/研发中心/应用和项目开发");
         worker.setPosition("软件开发工程师");
         worker.setWorkLog(new ArrayList<String>());
         worker.setOverTime(new ArrayList<String>());
